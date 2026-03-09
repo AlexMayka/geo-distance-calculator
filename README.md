@@ -1,66 +1,102 @@
-# Проект Distances_to_the_Ukrainian_border
+<div align="center">
 
-## Оглавление  
-[1. Описание проекта](README.md#Описание-проекта)   
-[2. Библиотеки](README.md#Библиотеки)  
-[3. Входные данные](README.md#Входные-данные)  
-[4. Как решал?](README.md#Как-решал?)    
-[6. Результаты](README.md#Результатыы) <br>
-[7. Выводы](README.md#Выводы) 
+# 🌍 Geo Distance Calculator
 
-### Описание проекта    
-Программа для поиска дистанции между адресами и границей без дополнительных финансовых влажений 
+**Data pipeline for calculating distances from addresses to geographic boundaries**
 
-### Библиотеки
-В данном проекте использовались библиотеки:
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white)](https://jupyter.org)
+[![Selenium](https://img.shields.io/badge/Selenium-43B02A?style=for-the-badge&logo=selenium&logoColor=white)](https://selenium.dev)
 
-- Pandas
-- Selenium
-- Plot
-- Geopy
+<br>
 
-### Входные данные
-Файл в формате "xlsx", где:
-- Столбец A: Город
-- Сьолбец B: Полный адрес
+<table>
+<tr>
+<td align="center"><h3>📍 4 stages</h3><sub>complete pipeline</sub></td>
+<td align="center"><h3>🆓 Zero cost</h3><sub>no paid APIs</sub></td>
+<td align="center"><h3>🎯 Accurate</h3><sub>within normal margin</sub></td>
+<td align="center"><h3>📊 Visual</h3><sub>maps & charts</sub></td>
+</tr>
+</table>
 
-![img.png](photo/Входящие%20данные.png)
+</div>
 
-### Как решал?
+---
 
-Решил разбить задачу на 4 этапа. Каждый этап разбит на отдельный файл.
-1. Поиск координат границы. 
-<br>Файл: [Finding_boundary_coordinates](Finding_boundary_coordinates.ipynb)
-<br>![img.png](photo/Поиск%20координат.png)<br><br>
-2. Предобработка данных
-<br>Файл: [Processing_of_input_data](Processing_of_input_data.ipynb)
-<br><br>![img.png](photo/Предобработка%20данных.png)<br><br>
-3. Поиск координат адресов
-<br>Файл: [Selenium](selenium/main.py)
-<br>![img.png](photo/Selenium.png)<br><br>
-4. Расчет дистанции
-<br>Файл: [Calculation_of_distance](Calculation_of_distance.ipynb)
-<br>![img.png](photo/Расчет%20дистанции.png)<br><br>
+## 💡 What It Does
 
-### Результаты:
-В результате получили дистанцию адресов и dataframe, где:
-* adress - полный адрес объекта
-* coord - координаты объекта
-* dist_to_bor - дистанция до границы
+Takes a list of **addresses** (city + full address) and calculates the **distance to the nearest geographic boundary** — all without paid geocoding APIs.
 
+**Use cases:**
+- Logistics planning — estimate delivery distances to border regions
+- Risk assessment — proximity analysis for insurance or compliance
+- Geospatial analytics — bulk distance calculations at scale
 
-![img.png](photo/Проверка.png)
+---
 
-### Вывод:
+## 🔄 Pipeline
 
-К конце можно можно сделать небольшой вывод:
+The process is split into **4 Jupyter notebooks**, each handling one stage:
 
-✅ Поставленный кейс выполнил;
-<br>✅ Решил задачу без финансовых вложений;
-<br>✅ Попрактиковал библиотеки pandas, selenium, plot, geopy; 
-<br>✅ Погрешность в дистанциии в пределах нормы;
+| # | Stage | Notebook | Description |
+|---|-------|----------|-------------|
+| 1 | 🗺 **Boundary extraction** | `Finding_boundary_coordinates.ipynb` | Extract boundary coordinates from map data |
+| 2 | 🧹 **Data preprocessing** | `Processing_of_input_data.ipynb` | Clean and normalize input addresses |
+| 3 | 📍 **Geocoding** | `selenium/main.py` | Convert addresses to coordinates via Selenium |
+| 4 | 📏 **Distance calculation** | `Calculation_of_distance.ipynb` | Haversine formula for geographic distances |
 
-По данной задаче и пути её решения написана статья:
+### Input
 
+Excel file (`.xlsx`) with two columns:
+- Column A: **City**
+- Column B: **Full address**
 
-Если информация по этому проекту покажется вам интересной или полезной, то я буду очень вам благодарен, если отметите репозиторий и профиль ⭐️⭐️⭐️-дами
+### Output
+
+DataFrame with:
+- `address` — original address
+- `coord` — geocoded coordinates (lat, lon)
+- `dist_to_border` — distance to nearest boundary (km)
+
+---
+
+## 🛠 Tech Stack
+
+| | Technology | Purpose |
+|-|------------|---------|
+| 🐍 | **Python** | Core language |
+| 📓 | **Jupyter Notebook** | Interactive pipeline |
+| 🌐 | **Selenium** | Browser-based geocoding (free) |
+| 📊 | **Pandas** | Data manipulation |
+| 🗺 | **GeoPy** | Geographic calculations |
+| 📈 | **Matplotlib** | Visualization |
+
+---
+
+## 🚀 Quick Start
+
+```bash
+git clone https://github.com/AlexMayka/geo-distance-calculator.git
+cd geo-distance-calculator
+pip install -r requirements.txt
+```
+
+Then run notebooks sequentially: `1 → 2 → 3 → 4`
+
+---
+
+## 📁 Structure
+
+```
+├── Finding_boundary_coordinates.ipynb    # Stage 1: boundary coords
+├── Processing_of_input_data.ipynb        # Stage 2: data cleaning
+├── Calculation_of_distance.ipynb         # Stage 3: distance calc
+├── selenium/main.py                      # Geocoding via Selenium
+├── data/                                 # Input/output datasets
+├── photo/                                # Pipeline visualizations
+└── requirements.txt                      # Dependencies
+```
+
+## License
+
+MIT
